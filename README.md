@@ -235,14 +235,5 @@ make demo
 
 MIT License - Voir [LICENSE](LICENSE) pour détails.
 
-## 🤝 Contribution
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/amazing-feature`)
-3. Commit (`git commit -m 'Add amazing feature'`)
-4. Push (`git push origin feature/amazing-feature`)
-5. Ouvrir une Pull Request
-
----
 
 **Desktop Agent** - Automatisation intelligente pour tous 🚀
