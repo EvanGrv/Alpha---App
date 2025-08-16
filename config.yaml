@@ -1,0 +1,51 @@
+# Configuration par défaut pour Desktop Agent
+
+# Mode développement
+debug: true
+api_reload: true
+
+# Configuration de logging
+logging:
+  level: "DEBUG"
+  format: "text"
+  file_path: "logs/agent.log"
+
+# Configuration de perception
+perception:
+  screenshot_interval: 0.5
+  cache_screenshots: false
+  ocr_language: "fr+en"
+  ocr_confidence_threshold: 0.5
+
+# Configuration de sécurité (permissive pour le développement)
+security:
+  require_confirmation_for_write: false
+  require_confirmation_for_delete: true
+  allowed_write_paths:
+    - "~/Documents"
+    - "~/Desktop" 
+    - "~/Downloads"
+    - "./data"
+  blocked_apps:
+    - "cmd"
+    - "powershell"
+  max_execution_time: 300.0
+
+# Configuration UI
+ui:
+  overlay_hotkey: "ctrl+grave"
+  overlay_height: 60
+  overlay_opacity: 0.9
+  theme: "dark"
+
+# Configuration vocale
+voice:
+  whisper_model: "base"
+  push_to_talk_key: "alt+space"
+  vad_aggressiveness: 2
+
+# Configuration RL
+rl:
+  environment_name: "DesktopAgent-v0"
+  observation_size: [224, 224]
+  episode_max_steps: 100

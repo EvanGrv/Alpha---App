@@ -1,0 +1,249 @@
+[tool.poetry]
+name = "desktop-agent"
+version = "0.1.0"
+description = "Agent d'automatisation desktop cross-platform avec CV + RL"
+authors = ["Desktop Agent Team <team@desktop-agent.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/your-org/desktop-agent"
+repository = "https://github.com/your-org/desktop-agent"
+documentation = "https://docs.desktop-agent.com"
+keywords = ["automation", "desktop", "ai", "computer-vision", "reinforcement-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Desktop Environment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Core dependencies
+fastapi = "^0.104.1"
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+python-multipart = "^0.0.6"
+websockets = "^12.0"
+
+# Configuration and logging
+pyyaml = "^6.0.1"
+structlog = "^23.2.0"
+python-json-logger = "^2.0.7"
+
+# Computer Vision and Image Processing
+opencv-python = "^4.8.1"
+pillow = "^10.1.0"
+mss = "^9.0.1"
+paddleocr = "^2.7.3"
+paddlepaddle = "^2.5.2"
+
+# OS Integration
+pyautogui = "^0.9.54"
+psutil = "^5.9.6"
+pywin32 = {version = "^306", markers = "sys_platform == 'win32'"}
+pyobjc = {version = "^10.0", markers = "sys_platform == 'darwin'"}
+
+# Voice Recognition (optional)
+openai-whisper = {version = "^20231117", optional = true}
+webrtcvad = {version = "^2.0.10", optional = true}
+pyaudio = {version = "^0.2.11", optional = true}
+torch = {version = "^2.1.1", optional = true}
+torchaudio = {version = "^2.1.1", optional = true}
+
+# Reinforcement Learning (optional)
+gymnasium = {version = "^0.29.1", optional = true}
+stable-baselines3 = {version = "^2.2.1", optional = true}
+numpy = "^1.24.4"
+
+# Database
+sqlite3 = {version = "*", markers = "python_version >= '3.11'"}
+sqlalchemy = {version = "^2.0.23", optional = true}
+
+# Utilities
+click = "^8.1.7"
+rich = "^13.7.0"
+python-dotenv = "^1.0.0"
+httpx = "^0.25.2"
+aiofiles = "^23.2.1"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools
+black = "^23.11.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.7.1"
+pre-commit = "^3.6.0"
+
+# Testing
+pytest = "^7.4.3"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+httpx = "^0.25.2"
+
+# Documentation
+sphinx = "^7.2.6"
+sphinx-rtd-theme = "^1.3.0"
+myst-parser = "^2.0.0"
+
+# Profiling and debugging
+memory-profiler = "^0.61.0"
+line-profiler = "^4.1.1"
+debugpy = "^1.8.0"
+
+[tool.poetry.group.test.dependencies]
+# Additional test dependencies
+factory-boy = "^3.3.0"
+faker = "^20.1.0"
+responses = "^0.24.1"
+pytest-benchmark = "^4.0.0"
+
+[tool.poetry.extras]
+voice = ["openai-whisper", "webrtcvad", "pyaudio", "torch", "torchaudio"]
+rl = ["gymnasium", "stable-baselines3", "torch"]
+database = ["sqlalchemy"]
+all = ["openai-whisper", "webrtcvad", "pyaudio", "torch", "torchaudio", "gymnasium", "stable-baselines3", "sqlalchemy"]
+
+[tool.poetry.scripts]
+desktop-agent = "apps.agent.main:main"
+desktop-agent-cli = "apps.agent.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Tool configurations
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 100
+skip_gitignore = true
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "E266", "E501", "W503", "F403", "F401"]
+max-complexity = 10
+select = ["B", "C", "E", "F", "W", "T4", "B9"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "docs/source/conf.py",
+    "old",
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+    ".tox",
+    ".eggs",
+    "*.egg"
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "cv2.*",
+    "mss.*",
+    "paddleocr.*",
+    "pyautogui.*",
+    "pywin32.*",
+    "win32.*",
+    "webrtcvad.*",
+    "pyaudio.*"
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "e2e: marks tests as end-to-end tests",
+    "windows_only: marks tests that only run on Windows",
+    "requires_display: marks tests that require a display",
+    "requires_audio: marks tests that require audio hardware",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["packages", "apps"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/migrations/*",
+    "*/venv/*",
+    "*/.venv/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+skip_covered = false
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
