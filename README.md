@@ -1,4 +1,4 @@
-# Alpha Agent 🤖
+# Alpha Agent 🤖 (🛠️ EN cours de DEV)
 
 Un agent d'automatisation de bureau cross-platform avec Computer Vision et Reinforcement Learning, interface vocale/texte, et barre de recherche toujours visible déclenchée par raccourci clavier global.
 
